@@ -1,0 +1,75 @@
+clc;
+clear;
+
+data = readmatrix("team4_lab4.xlsx");
+
+%% [ 1: X, 2:Y, 3:u, 4:v, 5:rho, 6:Po, 7:Ps)
+AB = data(1:9, [2 3 5 6 10 11 12]);
+BC = data(9:31, [2 3 5 6 10 11 12]);
+CD = data(31:end, [2 3 5 6 10 11 12]);
+
+
+AR = 5*[0 320 0 240];
+
+
+pForceAB = trapz(AB(:,2)./1000,AB(:,7));
+pForceCD = -trapz(CD(:,2)./1000,CD(:,7));
+
+pForceAB - pForceCD
+
+mForceAB = trapz(AB(:,2)., AB(:,5) .*AB(:,3).*AB(:,3))
+mForceCD = -trapz(CD(:,2), CD(:,5) .*CD(:,3).*CD(:,3))
+
+mForceAB- mForceCD
+
+
+
+%% Velocity Plots
+figure(1)
+    plot(AB(:,2), AB(:,3))
+    title("Surface AB X Velocity component U")
+    ylabel("X Velocity component U [m/s]")
+    xlabel("Y position [mm]")
+    ylim([15 28]);
+
+figure(2)
+    plot(BC(:,1), BC(:,4))
+    title("Surface BC Y Velocity component V")
+    ylabel("Y Velocity component V [m/s]")
+    xlabel("X position [mm]")
+
+figure(3)
+    plot(CD(:,2), CD(:,3))
+    title("Surface CD X Velocity component U")
+    ylabel("X Velocity component U [m/s]")
+    xlabel("Y position [mm]")
+
+%% Pressure Plots
+figure(4)
+    plot(AB(:,2), AB(:,6))
+    hold on 
+    plot(AB(:,2), AB(:,7))
+    title("Surface AB Pressure")
+    ylabel("Pressure [Pa]")
+    xlabel("Y position [mm]")
+    legend("Stagnation Pressure", "Static Pressure", 'Location', 'best')
+    
+
+figure(5)
+    plot(BC(:,1), BC(:,6))
+    hold on
+    plot(BC(:,1), BC(:,7))
+    title("Surface BC Pressure")
+    ylabel("Pressure [Pa]")
+    xlabel("X position [mm]")
+    legend("Stagnation Pressure", "Static Pressure", 'Location', 'best')
+
+figure(6)
+    plot(CD(:,2), CD(:,6))
+    hold on
+    plot(CD(:,2), CD(:,7))
+    title("Surface CD Pressure")
+    ylabel("Pressure [Pa]")
+    xlabel("Y position [mm]")
+    legend("Stagnation Pressure", "Static Pressure", 'Location', 'best')
+
