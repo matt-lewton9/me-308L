@@ -17,7 +17,7 @@ spacing = l*(0.371/2.74); % m
 FREEDOM_UNITS = [l*39.37, w*39.37, h*39.37, t*39.37]
 D_body = l*(5/2.74); % m, Arbitrary rocket diameter scaled proportionally
 
-S_A = w*h; % Ref area of side section
+S_A = l*h; % Ref area of side section
 S_N = D_body^2 * pi/4; % Ref area of relative rocket OD Scaled
 
 %% Forces

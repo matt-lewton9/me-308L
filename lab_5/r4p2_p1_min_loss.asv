@@ -1,0 +1,78 @@
+clc;
+clear;
+
+%% Setup 1
+% Load data
+data1 = readmatrix("Team4_Lab5_Valve1.xlsx");
+Q1 = data1(:,12) .* 0.00006309019640344; % m^3 / s
+dP1 = data1(:,13).* 	6894.7572931783; % Pa
+
+% Setup Dimensions
+ID = 2*25.4/1000; % m
+
+% Fluid Constants
+rho = 998.19; % kg/m^3
+v = 0.0000010023; % m^2/s, kinematic viscosity
+
+% Calcs
+A = (ID^2)/4; %m^2
+V1 = Q1 ./ A; % m/s
+Re1 =  ID .* V1 ./ v; % Re
+
+hl1 = dP1./rho;
+K1 = 2.*hl1./(V1.^2);
+K_theoretical1 = 5.5.* ones(1,numel(Re1));
+
+ind1 = [99 198 299 400 502 601];
+prev1 = 1;
+for i = 1:6
+     K_avg1(i) = mean(K1(prev1:ind1(i)));
+     K_std1(i) = std(K1(prev1:ind1(i)));
+     Re_avg1(i) = mean(Re1(prev1:ind1(i)));
+     prev1 = ind1(i)+1;
+end
+
+
+%% Setup 2
+% Load data
+data1 = readmatrix("Team4_Lab5_Valve1.xlsx");
+Q1 = data1(:,12) .* 0.00006309019640344; % m^3 / s
+dP1 = data1(:,13).* 	6894.7572931783; % Pa
+
+% Setup Dimensions
+ID = 2*25.4/1000; % m
+
+% Fluid Constants
+rho = 998.19; % kg/m^3
+v = 0.0000010023; % m^2/s, kinematic viscosity
+
+% Calcs
+A = (ID^2)/4; %m^2
+V1 = Q1 ./ A; % m/s
+Re1 =  ID .* V1 ./ v; % Re
+
+hl1 = dP1./rho;
+K1 = 2.*hl1./(V1.^2);
+K_theoretical1 = 5.5.* ones(1,numel(Re1));
+
+ind1 = [99 198 299 400 502 601];
+prev1 = 1;
+for i = 1:6
+     K_avg1(i) = mean(K1(prev1:ind1(i)));
+     K_std1(i) = std(K1(prev1:ind1(i)));
+     Re_avg1(i) = mean(Re1(prev1:ind1(i)));
+     prev1 = ind1(i)+1;
+end
+
+
+figure(1)
+%     plot(Re, K, 'o')
+    hold on
+    errorbar(Re_avg1, K_avg1, 2*K_std1)
+
+    hold on
+    plot(Re1, K_theoretical1, '--')
+    xlabel("Reynold's Number")
+    ylabel("Loss Coefficient, K")
+    legend("Experimental Data", "Theoretical Curve", 'location', 'southwest')
+    title("Loss Coefficient vs Reynold's Number")
