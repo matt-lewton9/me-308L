@@ -38,7 +38,7 @@ function bend_loss(P1, P2, V, N)
          prev = ind(i);
     end
 
-
+disp(mean(K2))
 
     fig = figure(N);
     subplot(2,1,1)
@@ -63,7 +63,7 @@ function bend_loss(P1, P2, V, N)
         xlabel("Reynold's Number")
         ylabel("Loss Coefficient, K")
 
-        saveas(fig, sprintf("bend_%d", N),'png')
+%         saveas(fig, sprintf("bend_%d", N),'png')
 
 
 end

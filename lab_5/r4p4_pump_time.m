@@ -45,17 +45,32 @@ U = sqrt(((2.*Up1./rho./g).^2) + ((2.*Up2./rho./g).^2));
 
 P = polyfit(Q_avg.^2, Hp_avg, 1);
 f = polyval([P(1), 0, P(2)], Q);
-disp(P(1))
-disp(P(2))
+% disp(P(1))
+% disp(P(2))
 
-% plot(Q, Hp, 'o')
-hold on
-% errorbar(Q_avg, Hp_avg, 2.*Hp_std)
-hold on
-errorbar(Q_avg, Hp_avg, U)
-hold on
-plot(Q, f, '--')
-xlabel("Volumetric Flowrate, [m^3/s]")
-ylabel("Pump Head [m]")
-legend("Experimental Data", "Curve Fit", "Location",'best')
+w1 = 3450;
+w2 = 1750;
+
+Hp2 = Hp_avg .* ((w2 / w1).^2);
+P2 = polyfit(Q_avg.^2, Hp2, 1);
+f2 = polyval([P2(1), 0, P2(2)], Q);
+disp(P2(1))
+disp(P2(2))
+
+figure(1)
+    % plot(Q, Hp, 'o')
+    hold on
+    % errorbar(Q_avg, Hp_avg, 2.*Hp_std)
+    hold on
+    % errorbar(Q_avg, Hp_avg, U)
+    hold on
+    plot(Q, f)
+    hold on
+    plot(Q, f2)
+    xlabel("Volumetric Flowrate, [m^3/s]")
+    ylabel("Pump Head [m]")
+    % legend("Experimental Data", "Curve Fit", "Location",'best')
+    legend("3,450 rpm", "1,750 rpm", "Location",'best')
+    ylim([0 30])
+
 

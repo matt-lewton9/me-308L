@@ -3,7 +3,7 @@ clear;
 
 % Load data
 data = readmatrix("Team4_Lab5_MajorLoss.xlsx");
-Q = data(:,1) .* 0.00006309019640344; % m^3 / s
+Q = ((data(:,1)) + .4).* 0.00006309019640344; % m^3 / s
 dP = data(:,2).* 	6894.7572931783; % Pa
 
 % Setup Dimensions
@@ -25,7 +25,7 @@ hl = dP./rho;
 
 f = hl .* (2*ID/l ./(V.^2));
 
-f_theoretical = 1./((-1.8.*log10(((e/ID/3.7)^1.11) + (6.9./Re))).^2);
+f_theoretical = 1./((-1.8.*log10(((e/(ID)/3.7)^1.11) + (6.9./Re))).^2);
 
 ind = ([100 197 298 401 498 599 701 799 898 999 1101])-1;
 prev = 1;
